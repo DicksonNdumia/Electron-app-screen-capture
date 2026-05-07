@@ -1,0 +1,30 @@
+{
+  "name": "screen-record",
+  "version": "1.0.0",
+  "description": "A practise in creating of desktop applications using electron ",
+  "license": "ISC",
+  "author": "Dickson Ndumia",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --ext js,css,html --exec electron .",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.ae.screencapturer",
+    "productName": "Screen Capturer",
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "icon": "assets/camera"
+  },
+  "devDependencies": {
+    "electron": "^38.1.0",
+    "electron-builder": "^26.0.12",
+    "nodemon": "^3.1.10"
+  }
+}
