@@ -6,6 +6,7 @@ const {
   desktopCapturer,
   shell,
   Tray,
+  Menu,
 } = require("electron");
 const path = require("node:path");
 const fs = require("node:fs");
@@ -31,6 +32,18 @@ app.whenReady().then(() => {
       window.show();
     }
   });
+
+  const menuTemplate = [
+    {
+      label: "Quit",
+      click: () => {
+        app.quit();
+      },
+    },
+  ];
+  const contextMenu = Menu.buildFromTemplate(menuTemplate);
+  tray.setContextMenu(contextMenu);
+
   window.loadFile("index.html");
 
   ipcMain.on("capture-screen", async () => {

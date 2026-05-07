@@ -14,6 +14,8 @@ The application runs in the system tray and captures the current screen using El
 - 🪟 Frameless transparent window
 - 💾 Automatically saves screenshots
 - 📂 Opens captured image automatically after saving
+- 🧩 Native tray context menu
+- ❌ Quit application from tray menu
 
 ---
 
@@ -86,7 +88,61 @@ tray.on("click", () => {
 
 ---
 
-## 3. Capturing the Screen
+## 3. Adding a Tray Context Menu
+
+The application also includes a tray menu that allows the user to quit the application directly from the system tray.
+
+```js
+const menuTemplate = [
+  {
+    label: "Quit",
+    click: () => {
+      app.quit();
+    },
+  },
+];
+
+const contextMenu = Menu.buildFromTemplate(menuTemplate);
+tray.setContextMenu(contextMenu);
+```
+
+### Explanation
+
+#### `Menu.buildFromTemplate()`
+
+Electron allows developers to create native desktop menus using templates.
+
+```js
+Menu.buildFromTemplate(menuTemplate);
+```
+
+This converts the JavaScript object array into a native operating system menu.
+
+---
+
+#### `tray.setContextMenu()`
+
+```js
+tray.setContextMenu(contextMenu);
+```
+
+This attaches the menu to the tray icon.
+
+When the user right-clicks the tray icon, the context menu appears.
+
+---
+
+#### `app.quit()`
+
+```js
+app.quit();
+```
+
+This completely closes the Electron application.
+
+---
+
+## 4. Capturing the Screen
 
 Electron's `desktopCapturer` API is used to capture the current screen.
 
@@ -103,7 +159,7 @@ const screens = await desktopCapturer.getSources({
 
 ---
 
-## 4. Getting Screen Size
+## 5. Getting Screen Size
 
 The app retrieves the current display size.
 
@@ -115,7 +171,7 @@ This ensures screenshots are captured at the correct resolution.
 
 ---
 
-## 5. Saving the Screenshot
+## 6. Saving the Screenshot
 
 The captured image is converted into PNG format and saved locally.
 
@@ -131,7 +187,7 @@ const filePath = path.join(os.homedir(), filename);
 
 ---
 
-## 6. Opening the Screenshot Automatically
+## 7. Opening the Screenshot Automatically
 
 After saving the image, Electron opens the screenshot automatically.
 
@@ -167,10 +223,11 @@ npm run build
 
 1. Launch the application
 2. App appears in the system tray
-3. Click the tray icon
-4. Trigger screenshot capture
-5. Screenshot gets saved automatically
-6. Captured image opens instantly
+3. Left-click the tray icon to show/hide the app
+4. Right-click the tray icon to open the menu
+5. Capture a screenshot
+6. Screenshot gets saved automatically
+7. Captured image opens instantly
 
 ---
 
@@ -184,6 +241,7 @@ This project demonstrates:
 - File system operations
 - Tray applications
 - Native desktop integrations
+- Context menus in Electron
 - Working with Node.js inside Electron
 
 ---
